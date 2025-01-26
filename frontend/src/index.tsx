@@ -1,10 +1,25 @@
+import {isSessionValid} from './session.ts'
+import {useNavigate} from 'react-router'
+import {useEffect} from "react";
+
 function Index() {
 
-  return (
-    <>
-      <h1>Index</h1>
-    </>
-  )
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!isSessionValid()) {
+            navigate('/login')
+        }
+    }, [navigate]);
+
+
+    return (
+        <>
+            <p>
+                hello
+            </p>
+
+        </>
+    )
 }
 
 export default Index

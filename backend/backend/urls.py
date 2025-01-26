@@ -18,8 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from rest_framework.authtoken import views
+from django.contrib.auth import views as auth_views
+from . import views
 
 urlpatterns = [
+    path('ping/', views.Ping.as_view(), name='ping'),
     path('admin/', admin.site.urls),
-    path('api-token-auth/', views.obtain_auth_token),
+    path('login/', views.Login.as_view(), name='login'),
+    path('webscraper/', include('webscraper.urls')),
 ]
