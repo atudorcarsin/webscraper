@@ -19,7 +19,7 @@ Requirements: [Git](https://git-scm.com),
 
 1. Clone the repository:
 ```
-git clone git@github.com:atudorcarsin/webscraper.git
+git clone https://github.com/atudorcarsin/webscraper.git
 ```
 2. Change directory:
 ```
