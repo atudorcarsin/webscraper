@@ -120,10 +120,12 @@ frontend_url = (os.getenv('FRONTEND_PROTOCOL', 'http') + '://' +
                 os.getenv('FRONTEND_PORT', '5173'))
 
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
     frontend_url,
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
     frontend_url,
 ]
 
