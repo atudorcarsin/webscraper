@@ -31,7 +31,7 @@ docker-compose --env-file .env.docker build
 ```
 4. Run the Docker container:
 ```
-docker-compose --env-file .env.docker up
+docker-compose --env-file .env.docker up -d
 ```
 5. Create superuser:
 ```
