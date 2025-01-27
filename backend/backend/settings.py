@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,8 +25,7 @@ SECRET_KEY = 'x75&(v9)oby-82zzifurk0fr&wh&773cepx@68^@ru00yb#)t^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -79,8 +78,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('DB_NAME', 'webscraper'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -112,14 +115,16 @@ REST_FRAMEWORK = {
     ],
 }
 
+frontend_url = (os.getenv('FRONTEND_PROTOCOL', 'http') + '://' +
+                os.getenv('FRONTEND_HOST', 'frontend') + ':' +
+                os.getenv('FRONTEND_PORT', '5173'))
+
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5173',
-    'http://localhost:5173',
+    frontend_url,
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:5173',
-    'http://localhost:5173',
+    frontend_url,
 ]
 
 CORS_ALLOW_HEADERS = (
@@ -160,8 +165,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass

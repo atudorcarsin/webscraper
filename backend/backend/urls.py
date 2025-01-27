@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from rest_framework.authtoken import views
-from django.contrib.auth import views as auth_views
+from django.views.generic.base import RedirectView
+from django.urls import reverse_lazy
 from . import views
 
 urlpatterns = [
+    path('', RedirectView.as_view(url=reverse_lazy('webscraper:test'))),
     path('ping/', views.Ping.as_view(), name='ping'),
     path('admin/', admin.site.urls),
     path('login/', views.Login.as_view(), name='login'),

@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    env_file:
+      - .env.docker
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    env_file: .env.docker
+    build:
+        context: ./backend
+        dockerfile: ./Dockerfile
+        args:
+          - BACKEND_PORT:${BACKEND_PORT}
+    restart: always
+    command: >
+      bash -c "
+      python manage.py makemigrations && 
+      python manage.py migrate && 
+      python manage.py createsuperuser --noinput &&
+      python manage.py runserver 0.0.0.0:${BACKEND_PORT}"
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    env_file: .env.docker
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+      args:
+        - FRONTEND_PORT:${FRONTEND_PORT}
+    restart: always
+    ports:
+      - "${CLIENT_PORT}:${FRONTEND_PORT}"
+    depends_on:
+      - backend

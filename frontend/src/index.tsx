@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router'
 import {useEffect} from "react";
 
 function Index() {
-
     const navigate = useNavigate();
     useEffect(() => {
         if (!isSessionValid()) {
@@ -11,11 +10,10 @@ function Index() {
         }
     }, [navigate]);
 
-
     return (
         <>
             <p>
-                hello
+                Still in progress, coming soon...
             </p>
 
         </>
