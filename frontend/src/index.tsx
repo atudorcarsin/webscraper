@@ -15,7 +15,6 @@ function Index() {
             <p>
                 Still in progress, coming soon...
             </p>
-
         </>
     )
 }
