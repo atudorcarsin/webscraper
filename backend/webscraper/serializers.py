@@ -9,4 +9,4 @@ class GroupSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        exclude = ['user', 'created_at']
+        exclude = ['user', 'group', 'created_at']
