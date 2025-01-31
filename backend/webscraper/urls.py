@@ -4,5 +4,6 @@ from . import views
 app_name = 'webscraper'
 
 urlpatterns = [
-    path('test/', views.Test.as_view(), name='test'),
+    path('', views.Index.as_view(), name='index'),
+    path('groups/<int:pk>/', views.ItemList.as_view(), name='items'),
 ]

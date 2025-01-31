@@ -13,9 +13,9 @@ class Group(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=64)
     url = models.URLField()
-    html_element_name = models.CharField(max_length=32)
-    filtering_options = models.JSONField()
-    data_retrieved = models.TextField(null=True)
+    html_element_name = models.CharField(max_length=32, null=True, blank=True)
+    filtering_options = models.JSONField(null=True, blank=True)
+    data_retrieved = models.TextField(null=True, blank=True)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

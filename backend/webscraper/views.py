@@ -1,10 +1,22 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from rest_framework.views import APIView
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
 from rest_framework.response import Response
+from .models import Group, Item
+from .serializers import GroupSerializer, ItemSerializer
 
-class Test(APIView):
-    def get(self, request):
-        return Response("Hello, world. You're at the webscraper test page.")
+class Index(generics.ListCreateAPIView):
+    serializer_class = GroupSerializer
+
+    def get_queryset(self):
+        return Group.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class ItemList(generics.ListCreateAPIView):
+    serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        return Item.objects.filter(user=self.request.user, group=self.kwargs.get('pk'))
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
