@@ -32,3 +32,4 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Item.objects.filter(user=self.request.user, pk=self.kwargs.get('pk'))
+
