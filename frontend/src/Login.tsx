@@ -13,9 +13,12 @@ function Login() {
             await axios.post('/login/', formDataToObject(formData))
             navigate('/')
         }
-        catch (error) {
+        catch (error: any) {
             console.log(error)
-            setError(error.response.data)
+            if (error instanceof Error) {
+                setError(error.message)
+            }
+            setError("Unable to log in")
         }
     }
 
@@ -25,11 +28,11 @@ function Login() {
                 <h1 className="align-self-center">Log In</h1>
                 <div className="form-group mb-2">
                     <label htmlFor="username">Username</label>
-                    <input type="text" className="form-control" id="username" name="username" placeholder="username"/>
+                    <input type="text" className="form-control" id="username" name="username" placeholder="username" required/>
                 </div>
                 <div className="form-group mb-2">
                     <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control" id="password" name="password" placeholder="password"/>
+                    <input type="password" className="form-control" id="password" name="password" placeholder="password" required/>
                 </div>
                 <p className="text-danger align-self-center">{error}</p>
                 <button type="submit" className="btn btn-primary align-self-center">Submit</button>
