@@ -3,18 +3,13 @@ import {useEffect} from "react"
 import React from "react"
 import axios from "axios"
 import Navbar from "./components/Navbar.tsx"
-
-type Group = {
-    id: number,
-    name: string,
-    description: string
-}
+import {Group} from "./types.ts"
 
 interface GroupsState {
     groups: Group[]
 }
 
-class Groups extends React.Component<{}, GroupsState> {
+class Groups extends React.Component {
     state: GroupsState = {
         groups: []
     }
