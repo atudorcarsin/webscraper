@@ -45,6 +45,10 @@ class Groups extends React.Component {
                                 </div>
                             )
                         })}
+
+                        <div className="d-flex justify-content-center">
+                            <a href="/group/create/" className="btn btn-primary mt-3">Create Group</a>
+                        </div>
                     </div>
                 </div>
             </>
