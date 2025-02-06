@@ -33,7 +33,7 @@ class Items extends React.Component {
                                         <h3 className="card-title">{item.name}</h3>
                                         <p className="card-text">{item.url}</p>
                                         <div>
-                                            <a href={`/item/${item.id}/`} className="btn btn-primary">Edit</a>
+                                            <a href={`/item/${item.id}/`} className="btn btn-primary">View</a>
                                         </div>
                                     </div>
                                 </div>
